@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.10.1"
+    id("org.jetbrains.intellij") version "1.12.0"
 }
 
 group = "com.x"
@@ -16,7 +16,7 @@ intellij {
     version.set("2022.1.4")
     type.set("IC") // Target IDE Platform
 
-    plugins.set(listOf(/* Plugin Dependencies */))
+    plugins.set(listOf("com.intellij.java"))
 }
 
 tasks {
@@ -24,6 +24,11 @@ tasks {
     withType<JavaCompile> {
         sourceCompatibility = "11"
         targetCompatibility = "11"
+        options.encoding = "UTF-8"
+    }
+
+    buildSearchableOptions {
+        enabled = false
     }
 
     patchPluginXml {
