@@ -1,11 +1,11 @@
 package com.github.bannirui.genx.service;
 
 import com.github.bannirui.genx.common.SpringState;
+import com.github.bannirui.genx.view.GAV;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
-import com.github.bannirui.genx.view.GAV;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,7 +19,7 @@ public class SpringSettings implements PersistentStateComponent<SpringState> {
     private SpringState springState = new SpringState();
 
     public static SpringSettings getInstance() {
-        return ServiceManager.getService(SpringSettings.class);
+        return ApplicationManager.getApplication().getService(SpringSettings.class);
     }
 
     @Override

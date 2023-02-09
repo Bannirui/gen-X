@@ -18,7 +18,6 @@ import javax.swing.*;
 public class TemplateFactory extends ProjectTemplatesFactory {
 
     private static final String NAME = "GEN-X";
-    private static final String DESCRIPTION = "AN ACCESS TO CODE GENERATING";
 
     @Override
     public String @NotNull [] getGroups() {

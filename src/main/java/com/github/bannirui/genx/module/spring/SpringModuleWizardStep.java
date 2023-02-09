@@ -17,7 +17,7 @@ import javax.swing.*;
  */
 public class SpringModuleWizardStep extends ModuleWizardStep {
 
-    private SpringUI ui;
+    private final SpringUI ui;
 
     public SpringModuleWizardStep(SpringUI ui) {
         this.ui = ui;

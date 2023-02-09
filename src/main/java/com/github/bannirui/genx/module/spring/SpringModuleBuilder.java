@@ -8,7 +8,6 @@ import com.github.bannirui.genx.ui.spring.SpringUI;
 import com.intellij.ide.util.projectWizard.*;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.Result;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.module.StdModuleTypes;
@@ -42,9 +41,8 @@ public class SpringModuleBuilder extends ModuleBuilder {
 
     private static final String NAME = "GEN-X::Spring";
     private static final String DESCRIPTION = "AN ACCESS TO SPRING BOOT TEMPLATE GENERATING";
-    private static final String SLASH = "/";
 
-    private MavenProjectGenerator pg = new MySpringProjectGeneratorImpl();
+    private final MavenProjectGenerator pg = new MySpringProjectGeneratorImpl();
 
     public SpringModuleBuilder() {
     }
@@ -117,12 +115,12 @@ public class SpringModuleBuilder extends ModuleBuilder {
         // project
         Project project = rootModel.getProject();
         // 工程结构
-        Runnable r = () -> new WriteCommandAction<VirtualFile>(project) {
-            @Override
-            protected void run(@NotNull Result<? super VirtualFile> result) throws Throwable {
-                pg.gen(project, getContentEntryPath(), SpringSettings.getInstance().getGAV());
-            }
-        }.execute();
+        Runnable r = () -> {
+            WriteCommandAction.writeCommandAction(project).compute(() -> {
+                SpringModuleBuilder.this.pg.gen(project, getContentEntryPath(), SpringSettings.getInstance().getGAV());
+                return null;
+            });
+        };
         if (ApplicationManager.getApplication().isUnitTestMode() || ApplicationManager.getApplication().isHeadlessEnvironment()) {
             r.run();
             return;
