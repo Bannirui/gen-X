@@ -17,7 +17,6 @@ import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.roots.ui.configuration.ModulesProvider;
-import com.intellij.openapi.startup.StartupManager;
 import com.intellij.openapi.util.NlsContexts;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.util.text.StringUtil;
@@ -128,10 +127,11 @@ public class SpringModuleBuilder extends ModuleBuilder {
             r.run();
             return;
         }
-        if (!project.isInitialized()) {
-            StartupManager.getInstance(project).registerPostStartupActivity(DisposeAwareRunnable.create(r, project));
-            return;
-        }
+        // TODO: 2023/2/9 comment below caz of err log
+        // if (!project.isInitialized()) {
+        //     StartupManager.getInstance(project).registerPostStartupActivity(DisposeAwareRunnable.create(r, project));
+        //     return;
+        // }
         if (DumbService.isDumbAware(r)) r.run();
         else DumbService.getInstance(project).runWhenSmart(DisposeAwareRunnable.create(r, project));
     }
