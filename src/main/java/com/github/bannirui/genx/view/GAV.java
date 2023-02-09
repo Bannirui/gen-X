@@ -14,7 +14,6 @@ public class GAV {
     private String _upperArtifactId; // 大写 Java源码模板渲染
     private String _version; // version
     private String _package; // package
-    private String _app; // app id
 
     public String get_groupId() {
         return _groupId;
@@ -54,13 +53,5 @@ public class GAV {
 
     public void set_package(String _package) {
         this._package = _package;
-    }
-
-    public String get_app() {
-        return _app;
-    }
-
-    public void set_app(String _app) {
-        this._app = _app;
     }
 }

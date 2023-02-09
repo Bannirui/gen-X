@@ -41,6 +41,6 @@ public class MySpringProjectGeneratorImpl extends AbstractSpringProjectGenerator
 
     @Override
     protected void genCfg(Project project, String entryPath, GAV gav) {
-        super.writeFile(project, entryPath, "src/main/resources/META-INF/", "app.properties", "app.ftl", gav);
+        super.writeFile(project, entryPath, "src/main/resources/META-INF/", "app.properties", "app.ftl", null);
     }
 }

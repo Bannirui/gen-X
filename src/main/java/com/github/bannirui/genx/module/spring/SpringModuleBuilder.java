@@ -80,15 +80,14 @@ public class SpringModuleBuilder extends ModuleBuilder {
     // [New Project]回调
     @Override
     public ModuleWizardStep[] createWizardSteps(@NotNull WizardContext wizardContext, @NotNull ModulesProvider modulesProvider) {
-        return super.createWizardSteps(wizardContext, modulesProvider);
+        return new ModuleWizardStep[]{new SpringModuleWizardStep(new SpringUI())};
     }
 
     // 表单页面
     @Override
     public @Nullable ModuleWizardStep getCustomOptionsStep(WizardContext context, Disposable parentDisposable) {
-        return new SpringModuleWizardStep(new SpringUI());
+        return super.getCustomOptionsStep(context, parentDisposable);
     }
-
 
     // 自定义form表单提交后回调 设置模块名
     @Override

@@ -40,7 +40,6 @@ public class SpringModuleWizardStep extends ModuleWizardStep {
         gav.set_upperArtifactId(WordUtils.capitalize(aId));
         gav.set_version(this.ui.getVersionField().getText());
         gav.set_package(this.ui.getPackageField().getText());
-        gav.set_app(this.ui.getAppIdField().getText());
     }
 
     @Override

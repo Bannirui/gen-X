@@ -1,1 +1,1 @@
-app.id=${_app}
+app.id=x
