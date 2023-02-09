@@ -1,10 +1,11 @@
-package com.x.genx.factory;
+package com.github.bannirui.genx.factory;
 
+import com.github.bannirui.genx.icons.MyIcons;
+import com.github.bannirui.genx.module.spring.SpringModuleBuilder;
 import com.intellij.ide.util.projectWizard.WizardContext;
 import com.intellij.platform.ProjectTemplate;
 import com.intellij.platform.ProjectTemplatesFactory;
 import com.intellij.platform.templates.BuilderBasedTemplate;
-import com.x.genx.module.spring.SpringModuleBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,21 +17,22 @@ import javax.swing.*;
  */
 public class TemplateFactory extends ProjectTemplatesFactory {
 
-    private static final String FACTORY_NAME = "My Template";
+    private static final String NAME = "GEN-X";
+    private static final String DESCRIPTION = "AN ACCESS TO CODE GENERATING";
 
     @Override
     public String @NotNull [] getGroups() {
-        return new String[]{FACTORY_NAME};
+        return new String[]{NAME};
     }
 
     @Override
     public Icon getGroupIcon(String group) {
-        // TODO: 2023/2/9
-        return null;
+        return MyIcons.SdkDefaultIcon;
     }
 
     @Override
     public ProjectTemplate @NotNull [] createTemplates(@Nullable String s, @NotNull WizardContext wizardContext) {
+        // 项目向导
         return new ProjectTemplate[]{new BuilderBasedTemplate(new SpringModuleBuilder())};
     }
 }

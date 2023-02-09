@@ -1,12 +1,12 @@
-package com.x.genx.common;
+package com.github.bannirui.genx.common;
 
-import com.x.genx.view.GAV;
+import com.github.bannirui.genx.view.GAV;
 
 /**
  * @author dingrui
  * @since 2023/2/9
  */
-public class MyMavenProjectData {
+public class SpringState {
 
     private GAV gav = new GAV();
 

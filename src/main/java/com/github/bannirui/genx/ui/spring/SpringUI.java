@@ -1,4 +1,4 @@
-package com.x.genx.ui.spring;
+package com.github.bannirui.genx.ui.spring;
 
 import javax.swing.*;
 
@@ -13,8 +13,9 @@ public class SpringUI {
     private JTextField artifactIdField; // artifact id
     private JTextField versionField; // version
     private JTextField packageField; // package
+    private JTextField appIdField;
 
-    public JPanel getComponent() {
+    public JPanel getMainPanel() {
         return mainPanel;
     }
 
@@ -32,5 +33,9 @@ public class SpringUI {
 
     public JTextField getPackageField() {
         return packageField;
+    }
+
+    public JTextField getAppIdField() {
+        return appIdField;
     }
 }

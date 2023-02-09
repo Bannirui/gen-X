@@ -1,4 +1,4 @@
-package com.x.genx.view;
+package com.github.bannirui.genx.view;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

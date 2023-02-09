@@ -1,6 +1,12 @@
-package com.x.genx.module.spring;
+package com.github.bannirui.genx.module.spring;
 
+import com.github.bannirui.genx.icons.MyIcons;
+import com.github.bannirui.genx.service.MavenProjectGenerator;
+import com.github.bannirui.genx.service.SpringSettings;
+import com.github.bannirui.genx.service.impl.MySpringProjectGeneratorImpl;
+import com.github.bannirui.genx.ui.spring.SpringUI;
 import com.intellij.ide.util.projectWizard.*;
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.Result;
 import com.intellij.openapi.command.WriteCommandAction;
@@ -18,11 +24,6 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.DisposeAwareRunnable;
-import com.x.genx.icons.MyIcons;
-import com.x.genx.service.MavenProjectGenerator;
-import com.x.genx.service.MyMavenProjectDataLoad;
-import com.x.genx.service.impl.MySpringProjectGeneratorImpl;
-import com.x.genx.ui.spring.SpringUI;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -33,16 +34,28 @@ import java.io.File;
 import java.util.Objects;
 
 /**
+ * Spring项目向导
+ *
  * @author dingrui
  * @since 2023/2/9
  */
 public class SpringModuleBuilder extends ModuleBuilder {
 
-    private static final String NAME = "Spring Boot";
-    private static final String DESCRIPTION = "access to Spring project generating";
+    private static final String NAME = "GEN-X::Spring";
+    private static final String DESCRIPTION = "AN ACCESS TO SPRING BOOT TEMPLATE GENERATING";
     private static final String SLASH = "/";
 
     private MavenProjectGenerator pg = new MySpringProjectGeneratorImpl();
+
+    public SpringModuleBuilder() {
+    }
+
+    // 重写方法 挂载自定义模板
+    @Override
+    public @Nullable
+    @NonNls String getBuilderId() {
+        return getClass().getName();
+    }
 
     @Override
     public Icon getNodeIcon() {
@@ -64,39 +77,52 @@ public class SpringModuleBuilder extends ModuleBuilder {
         return DESCRIPTION;
     }
 
+    // [New Project]回调
     @Override
-    public @Nullable
-    @NonNls String getBuilderId() {
-        return getClass().getName();
+    public ModuleWizardStep[] createWizardSteps(@NotNull WizardContext wizardContext, @NotNull ModulesProvider modulesProvider) {
+        return super.createWizardSteps(wizardContext, modulesProvider);
     }
 
+    // 表单页面
+    @Override
+    public @Nullable ModuleWizardStep getCustomOptionsStep(WizardContext context, Disposable parentDisposable) {
+        return new SpringModuleWizardStep(new SpringUI());
+    }
+
+
+    // 自定义form表单提交后回调 设置模块名
     @Override
     public @Nullable ModuleWizardStep modifySettingsStep(@NotNull SettingsStep settingsStep) {
+        // maven表单
         ModuleNameLocationSettings moduleNameLocationSettings = settingsStep.getModuleNameLocationSettings();
-        String artifactId = MyMavenProjectDataLoad.getInstance().getGAV().get_artifactId();
+        String artifactId = SpringSettings.getInstance().getGAV().get_artifactId();
         if (Objects.nonNull(moduleNameLocationSettings) && !StringUtil.isEmptyOrSpaces(artifactId))
             moduleNameLocationSettings.setModuleName(artifactId);
+        // 项目表单
         return super.modifySettingsStep(settingsStep);
     }
 
+    @Override
+    public boolean validateModuleName(@NotNull String moduleName) throws ConfigurationException {
+        return super.validateModuleName(moduleName);
+    }
+
+    // module创建完成后回调
     @Override
     public void setupRootModel(@NotNull ModifiableRootModel rootModel) throws ConfigurationException {
         // jdk
         if (Objects.nonNull(this.myJdk)) rootModel.setSdk(this.myJdk);
         else rootModel.inheritSdk();
+        // 工程路径
+        VirtualFile vf = this.createAndGetContentEntry();
+        rootModel.addContentEntry(vf);
         // project
         Project project = rootModel.getProject();
-        String projectName = project.getName();
-        String projectLocation = project.getBasePath();
-        String path = FileUtil.toSystemIndependentName(projectLocation + SLASH + projectName);
-        new File(path).mkdirs();
-        VirtualFile vf = LocalFileSystem.getInstance().refreshAndFindFileByPath(path);
-        rootModel.addContentEntry(vf);
         // 工程结构
         Runnable r = () -> new WriteCommandAction<VirtualFile>(project) {
             @Override
             protected void run(@NotNull Result<? super VirtualFile> result) throws Throwable {
-                pg.gen(project, getContentEntryPath(), MyMavenProjectDataLoad.getInstance().getGAV());
+                pg.gen(project, getContentEntryPath(), SpringSettings.getInstance().getGAV());
             }
         }.execute();
         if (ApplicationManager.getApplication().isUnitTestMode() || ApplicationManager.getApplication().isHeadlessEnvironment()) {
@@ -111,9 +137,10 @@ public class SpringModuleBuilder extends ModuleBuilder {
         else DumbService.getInstance(project).runWhenSmart(DisposeAwareRunnable.create(r, project));
     }
 
-    @Override
-    public ModuleWizardStep[] createWizardSteps(@NotNull WizardContext wizardContext, @NotNull ModulesProvider modulesProvider) {
-        // 工程配置步骤
-        return new ModuleWizardStep[]{new SpringModuleWizardStep(new SpringUI())};
+    private VirtualFile createAndGetContentEntry() {
+        // 引导面板上的[project location] 需要填写含项目名的全路径
+        String path = FileUtil.toSystemIndependentName(Objects.requireNonNull(super.getContentEntryPath()));
+        new File(path).mkdirs();
+        return LocalFileSystem.getInstance().refreshAndFindFileByPath(path);
     }
 }

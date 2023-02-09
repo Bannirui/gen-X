@@ -12,7 +12,8 @@
     <depends>com.intellij.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <projectTemplatesFactory implementation="com.x.genx.factory.TemplateFactory"/>
-        <applicationService serviceImplementation="com.x.genx.service.MyMavenProjectDataLoad"/>
+        <!-- <projectTemplatesFactory implementation="com.github.bannirui.genx.factory.TemplateFactory"/> -->
+        <moduleBuilder builderClass="com.github.bannirui.genx.module.spring.SpringModuleBuilder"/>
+        <applicationService serviceImplementation="com.github.bannirui.genx.service.SpringSettings"/>
     </extensions>
 </idea-plugin>

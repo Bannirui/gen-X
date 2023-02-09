@@ -1,12 +1,12 @@
-package com.x.genx.service;
+package com.github.bannirui.genx.service;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.x.genx.view.FreemarkerConfiguration;
-import com.x.genx.view.GAV;
+import com.github.bannirui.genx.view.FreemarkerConfiguration;
+import com.github.bannirui.genx.view.GAV;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -26,11 +26,31 @@ public abstract class AbstractSpringProjectGenerator extends FreemarkerConfigura
 
     @Override
     public void gen(Project project, String entryPath, GAV gav) {
+        this.genGitignore(project, entryPath);
         this.genPOM(project, entryPath, gav);
+        this.genApp(project, entryPath, gav);
+        this.genYml(project, entryPath);
+        this.genDDD(project, entryPath, gav);
+        this.genCfg(project, entryPath, gav);
     }
+
+    // ignore
+    protected abstract void genGitignore(Project project, String entryPath);
 
     // pom文件创建
     protected abstract void genPOM(Project project, String entryPath, GAV gav);
+
+    // App
+    protected abstract void genApp(Project project, String entryPath, GAV gav);
+
+    // yml
+    protected abstract void genYml(Project project, String entryPath);
+
+    // DDD
+    protected abstract void genDDD(Project project, String entryPath, GAV gav);
+
+    // 配置文件
+    protected abstract void genCfg(Project project, String entryPath, GAV gav);
 
     /**
      * 文件创建

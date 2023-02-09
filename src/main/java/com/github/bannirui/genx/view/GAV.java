@@ -1,4 +1,4 @@
-package com.x.genx.view;
+package com.github.bannirui.genx.view;
 
 /**
  * 创建Maven项目坐标信息
@@ -11,8 +11,10 @@ public class GAV {
 
     private String _groupId; // group id
     private String _artifactId; // artifact id
+    private String _upperArtifactId; // 大写 Java源码模板渲染
     private String _version; // version
     private String _package; // package
+    private String _app; // app id
 
     public String get_groupId() {
         return _groupId;
@@ -30,6 +32,14 @@ public class GAV {
         this._artifactId = _artifactId;
     }
 
+    public String get_upperArtifactId() {
+        return _upperArtifactId;
+    }
+
+    public void set_upperArtifactId(String _upperArtifactId) {
+        this._upperArtifactId = _upperArtifactId;
+    }
+
     public String get_version() {
         return _version;
     }
@@ -44,5 +54,13 @@ public class GAV {
 
     public void set_package(String _package) {
         this._package = _package;
+    }
+
+    public String get_app() {
+        return _app;
+    }
+
+    public void set_app(String _app) {
+        this._app = _app;
     }
 }

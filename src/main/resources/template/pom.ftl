@@ -13,7 +13,6 @@
     <groupId>${_groupId}</groupId>
     <artifactId>${_artifactId}</artifactId>
     <version>${_version}</version>
-    <name>${_artifactId}</name>
 
     <developers>
         <developer>
@@ -21,13 +20,6 @@
             <email>x@outlook.com</email>
         </developer>
     </developers>
-
-    <properties>
-        <redisson.version>3.10.6</redisson.version>
-        <hutool.version>5.7.18</hutool.version>
-        <mapstruct.version>1.3.0.Final</mapstruct.version>
-        <mybatis-typehandler.version>1.0.2</mybatis-typehandler.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -40,39 +32,29 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.zto.titans</groupId>
+            <artifactId>titans-endpoint</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zto.titans</groupId>
+            <artifactId>titans-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zto.titans</groupId>
+            <artifactId>titans-logging</artifactId>
+        </dependency>
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>${redisson.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-processor</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis-typehandlers-jsr310</artifactId>
-                <version>${mybatis-typehandler.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
