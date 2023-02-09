@@ -6,7 +6,8 @@ import com.intellij.openapi.util.IconLoader;
 
 import javax.swing.*;
 
-public class SdkIcons {
+public class MyIcons {
 
-  public static final Icon SdkDefaultIcon = IconLoader.getIcon("/icons/sdk.svg", SdkIcons.class);
+    public static final Icon SdkDefaultIcon = IconLoader.getIcon("/icons/sdk.svg", MyIcons.class);
+    public static final Icon SpringBootIcon = IconLoader.getIcon("/icons/spring-boot.png", MyIcons.class);
 }

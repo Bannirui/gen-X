@@ -10,13 +10,15 @@ repositories {
     mavenCentral()
 }
 
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
     version.set("2022.1.4")
     type.set("IC") // Target IDE Platform
 
     plugins.set(listOf("com.intellij.java"))
+}
+
+dependencies {
+    implementation("org.freemarker:freemarker:2.3.31")
 }
 
 tasks {
