@@ -1,11 +1,26 @@
 <idea-plugin>
     <id>com.x.gen-X</id>
     <name>Gen-X</name>
+    <version>1.0.0</version>
 
     <vendor email="bannirui@outlook.com" url="https://github.com/Bannirui/gen-X">Bannirui</vendor>
 
     <description><![CDATA[
-    just provide a simple access to standard template
+    <div>
+    <p>
+        <a href="https://github.com/Bannirui/gen-X" target="_blank" rel="nofollow">GitHub</a>
+    </p>
+    <img src="https://raw.githubusercontent.com/Bannirui/blogs/master/img/202302121605581.png">
+    <h1>Gen-X</h1>
+    <div>
+        <p>A plugin helping for code generation.
+        </p>
+        <p>Features</p>
+        <ul>
+            <li>Just provide simple access to customized template, e.g., Maven project and Spring project.</li>
+        </ul>
+    </div>
+</div>
   ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
